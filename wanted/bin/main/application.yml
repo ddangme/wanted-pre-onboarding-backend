@@ -1,0 +1,33 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/wanted?characterEncoding=UTF-8&amp
+    username: ddangme
+    password: qwer1234
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    
+  jpa:
+    hibernate:
+      ddl-auto: none
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+      javax:
+        persistence:
+          sharedcache:
+            mode: ENABLE_SELECTIVE
+   
+  mvc:
+    view:
+      prefix: /WEB-INF/views/
+      suffix: .jsp
+        
+        
+logging:
+  level:
+    org.hibernate.SQL: debug
+
+jwt:
+  header: Authorization
+  secret: rutyweorituwyerotiuweyrtoiuweyrtoweiurtywoeighdfsojkghsdfgsdofiguwyertouw | base64YWprbGdoc2Rma2xnanNkaGZnbGprc2RmZ2hsc2
+  access-token-validity-in-seconds: 600
