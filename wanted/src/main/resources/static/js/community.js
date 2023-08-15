@@ -31,19 +31,20 @@ $("#update-button").click(function() {
 		var formData = {
 			title: $("#title").val(),
 			content: $("#content").val(),
-			id: $("#update-button").data("id")
-		}
+			id: $("#update-button").data("id"),
+			memberId: localStorage.getItem("login")
+		};
 		$.ajax({
 			url: "/community",
 			method: "PUT",
 			data: JSON.stringify(formData),
 			contentType: "application/json",
 			success: function(data) {
-				if (data != null) {
+				if (data == null || data == "") {
 					alert("게시물이 수정되었습니다.");
-					return location.href="/community/" + data;
+					return location.href="/community/" + $("#update-button").data("id");
 				} else {
-					alert("게시물 수정에 실패하였습니다.");
+					alert("게시물 수정 권한이 없습니다.");
 				}
 			}
 		});
@@ -52,16 +53,21 @@ $("#update-button").click(function() {
 
 $("#delete").click(function() {
 	if (confirm("게시물을 삭제하시겠습니까?")) {
-		var id = $("#delete").data("id");
+		var formData = {
+			id: $("#delete").data("id"), 
+			memberId: localStorage.getItem("login")
+		};
 		$.ajax({
-			url: "/community/" + id,
+			url: "/community/" + $("#delete").data("id"),
 			type: "DELETE",
+			data: JSON.stringify(formData),
+			contentType: "application/json",
 			success: function(data) {
-				if (data == "0") {
-					location.href="/community/list";
+				if (data == null || data == "") {
 					alert("게시물이 삭제되었습니다.");
+					location.href="/community/list";
 				} else {
-					alert("게시물 삭제에 실패하였습니다.");
+					alert("게시물 삭제 권한이 없습니다.");
 				}
 			}
 		});

@@ -1,6 +1,5 @@
 package wanted.controller.community;
 
-import java.awt.print.Pageable;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,21 +18,18 @@ public class MainController {
 	
 	@GetMapping("")
 	public String main(Model model) {
-		System.out.println("getList");
 		model.addAttribute("communityList", communityService.getList());
 		return "redirect:/community/list";
 	}
 	
 	@GetMapping("/community/list")
 	public String getList(Model model) {
-		System.out.println("getList");
 		model.addAttribute("communityList", communityService.getList());
 		return "/community/list";
 	}
 	
 	@GetMapping("/community/write")
 	public String writeForm() {
-		System.out.println("writeForm");
 		return "/community/write";
 	}
 

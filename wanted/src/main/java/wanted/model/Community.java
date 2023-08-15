@@ -31,6 +31,11 @@ public class Community {
 	
 	public Community() { }
 	
+	public Community(Long id, Long memberId) {
+		this.id = id;
+		this.member = new Member(memberId);
+	}
+	
 	public void setMember(Member member) {
 		this.member = member;
 	}
@@ -42,10 +47,11 @@ public class Community {
 		this.writeTime = LocalDateTime.now(); 
 	}
 	
-	public Community(Long id, String title, String content) {
+	public Community(Long id, String title, String content, Long memberId) {
 		this.id = id;
 		this.title = title;
 		this.content = content;
+		this.member = new Member(memberId);
 		this.updateTime = LocalDateTime.now(); 
 	}
 	

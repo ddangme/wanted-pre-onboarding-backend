@@ -18,8 +18,6 @@ public class MemberController {
 	
 	@PostMapping("/login")
 	private String login(@RequestBody MemberDTO dto) {
-		System.out.println(dto.getEmail());
-		System.out.println(dto.getPassword());
 		Member member = new Member(dto.getEmail(), dto.getPassword());
 		return memberService.login(member);
 	}

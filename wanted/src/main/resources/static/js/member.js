@@ -3,8 +3,10 @@ if (localStorage.getItem("login") != null) {
 	$("#logout-header").attr("hidden", false);
 } else {
 	if (location.href != "http://localhost:8080/login") {
-		alert("로그인 후 이용가능합니다. 로그인 페이지로 이동합니다.");
-		location.href="/login";
+		if (location.href != "http://localhost:8080/join") {
+			alert("로그인 후 이용가능합니다. 로그인 페이지로 이동합니다.");
+			location.href="/login";
+		}
 	}
 }
 
@@ -19,11 +21,12 @@ $("#login").click(function() {
 		data: JSON.stringify(formData),
 		contentType: "application/json",
 		success: function(data) {
-			if (data == "-1") {
-				return alert("존재하지 않는 계정입니다.\n확인 후 다시 시도해주세요.");
+			if (data.includes("성공")) {
+				localStorage.setItem("login", data.replace("성공", ""));
+				return location.href="/community/list";
+			} else {
+				return alert(data);
 			}
-			localStorage.setItem("login", data);
-			return location.href="/community/list";
 		}
 	});
 });

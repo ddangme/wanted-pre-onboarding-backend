@@ -33,14 +33,25 @@ public class CommunityService {
 	}
 	
 	@Transactional
-	public void delCommunity(Long id) {
-		communityRepository.delCommunity(id);
+	public String delCommunity(Community community) {
+		Community beforeCommunity = communityRepository.getCommunity(community.getId());
+		if (beforeCommunity.getMember().getId() != community.getMember().getId()) {
+			return "권한이 존재하지 않습니다.";
+		} else {
+			communityRepository.delCommunity(community.getId());
+			return null;
+		}
 	}
 	
 	@Transactional
-	public void updateCommunity(Community community) {
+	public String updateCommunity(Community community) {
 		Community beforeCommunity = communityRepository.getCommunity(community.getId());
-		beforeCommunity.setCommunity(community.getTitle(), community.getContent());
-		communityRepository.updateCommunity(beforeCommunity);
+		if (beforeCommunity.getMember().getId() != community.getMember().getId()) {
+			return "권한이 존재하지 않습니다.";
+		} else {
+			beforeCommunity.setCommunity(community.getTitle(), community.getContent());
+			communityRepository.updateCommunity(beforeCommunity);
+			return null;
+		}
 	}
 }

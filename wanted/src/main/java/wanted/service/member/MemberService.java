@@ -14,8 +14,6 @@ public class MemberService {
 	private final MemberRepository memberRepository;
 	
 	public String login(Member member) {
-//		member.setSecurityPassword();
-//		System.out.println(member.getPassword());
 		if (!member.checkEmail()) {
 			return "이메일 형식으로 입력해주세요.";
 		} else if (!member.checkPassword()) {
@@ -23,9 +21,9 @@ public class MemberService {
 		}
 		Member findMember = memberRepository.login(member);
 		if (findMember == null) {
-			return "-1";
+			return "존재하지 않는 계정입니다.";
 		}
-		return memberRepository.login(member).getId().toString();
+		return "성공" + memberRepository.login(member).getId().toString();
 	}
 	
 	@Transactional

@@ -27,16 +27,15 @@ public class CommunityController {
 	}
 	
 	@DeleteMapping("/{id}")
-	public String delCommunity(@PathVariable Long id) {
-		communityService.delCommunity(id);
-		return "0";
+	public String delCommunity(@PathVariable Long id, @RequestBody CommunityDTO dto) {
+		Community community = new Community(dto.getId(), dto.getMemberId());
+		return communityService.delCommunity(community);
 	}
 	
 	@PutMapping("")
-	public Long updateCommunity(@RequestBody CommunityDTO dto) {
-		Community community = new Community(dto.getId(), dto.getTitle(), dto.getContent());
-		communityService.updateCommunity(community);
-		return dto.getId();
+	public String updateCommunity(@RequestBody CommunityDTO dto) {
+		Community community = new Community(dto.getId(), dto.getTitle(), dto.getContent(), dto.getMemberId());
+		return communityService.updateCommunity(community);
 	}
 	
 }
