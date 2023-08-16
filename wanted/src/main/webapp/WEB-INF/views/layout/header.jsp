@@ -26,12 +26,6 @@
 		</a>
 		<div class="collapse navbar-collapse" id="navbarColor01">
 			<ul class="navbar-nav me-auto">
-				<li class="nav-item">
-					<a class="nav-link active" href="${pageContext.request.contextPath}/">Home</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="${pageContext.request.contextPath}/community/list">Community</a>
-				</li>
 			</ul>
 			<div id="login-header">
 				<input type="button" onclick="location.href='/login'" class="btn btn-primary" value="로그인">&nbsp;

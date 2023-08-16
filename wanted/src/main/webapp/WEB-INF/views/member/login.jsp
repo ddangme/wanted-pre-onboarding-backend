@@ -14,5 +14,9 @@
 		</form>
 	</div>
 </div>
-
+<script>
+if (localStorage.getItem("login") != null) {
+	location.href="/community/list";
+}
+</script>
 <%@ include file="/WEB-INF/views/layout/footer.jsp"%>

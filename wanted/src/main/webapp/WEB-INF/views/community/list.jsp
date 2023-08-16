@@ -5,7 +5,7 @@
 		<button type="button" class="btn btn-primary" id="write-button">게시글 작성하기</button>
 	</div>
 	<div class="col-lg-12">
-		<table class="table table-hover">
+		<table class="table table-hover" id="table">
 			<thead>
 		    	<tr align="center">
 					<th scope="col">제목</th>
@@ -31,29 +31,13 @@
 		  </tbody>
 		</table>
 	</div>
-	<div class="col-lg-4 offset-lg-4">
-	  <ul class="pagination">
-	    <li class="page-item disabled">
-	      <a class="page-link" href="#">&laquo;</a>
-	    </li>
-	    <li class="page-item active">
-	      <a class="page-link" href="#">1</a>
-	    </li>
-	    <li class="page-item">
-	      <a class="page-link" href="#">2</a>
-	    </li>
-	    <li class="page-item">
-	      <a class="page-link" href="#">3</a>
-	    </li>
-	    <li class="page-item">
-	      <a class="page-link" href="#">4</a>
-	    </li>
-	    <li class="page-item">
-	      <a class="page-link" href="#">5</a>
-	    </li>
-	    <li class="page-item">
-	      <a class="page-link" href="#">&raquo;</a>
-	    </li>
+	<div class="col-lg-2 offset-lg-5">
+		<ul class="pagination">
+	    	<c:forEach begin="1" end="${communityListCount}" varStatus="loop">
+				<li class="page-item active">
+					<a class="page-link" href="/community/list/${loop.index}">${loop.index}</a>
+				</li>
+	    	</c:forEach>
 	  </ul>
 	</div>
 </div>

@@ -58,7 +58,7 @@ $("#delete").click(function() {
 			memberId: localStorage.getItem("login")
 		};
 		$.ajax({
-			url: "/community/" + $("#delete").data("id"),
+			url: "/community",
 			type: "DELETE",
 			data: JSON.stringify(formData),
 			contentType: "application/json",
@@ -72,4 +72,8 @@ $("#delete").click(function() {
 			}
 		});
 	}
+});
+
+$("#community-list").click(function() {
+	location.href="/community/list";
 });

@@ -52,12 +52,12 @@ public class Community {
 		this.title = title;
 		this.content = content;
 		this.member = new Member(memberId);
-		this.updateTime = LocalDateTime.now(); 
 	}
 	
 	public void setCommunity(String title, String content) {
 		this.title = title;
 		this.content = content;
+		this.updateTime = LocalDateTime.now(); 
 	}
 	
 }
