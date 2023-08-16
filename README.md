@@ -8,10 +8,10 @@
 - localhost:포트번호(이하 생략) - community/list로 이동
 - post   /community - 게시글 작성 로직 후 커뮤니티 리스트로 이동 혹은 작성 페이지 유지
 - put    /community - 게시글 수정 로직 후 커뮤니티 상세 페이지로 이동 혹은 수정 페이지 유지
+- delete /community - 게시글 삭제 로직 후 커뮤니티 리스트로 이동 혹은 상세 페이지 유지
 - get    /community/list - 커뮤니티 리스트로 이동
 - get    /community/write - 게시글 작성 페이지로 이동
 - get    /community/번호 - 게시글 상세 페이지로 이동
-- delete /community/번호 - 게시글 삭제 로직 후 커뮤니티 리스트로 이동 혹은 상세 페이지 유지
 - get    /community/update/번호 - 게시글 수정 페이지로 이동
 - get    /login - 로그인 페이지로 이동
 - post   /login - 로그인 로직 후 커뮤니티 리스트로 이동 혹은 로그인 페이지 유지
@@ -42,12 +42,13 @@ CREATE TABLE community (
 ) ENGINE=MYISAM CHARSET=utf8;
 
 **구현한 API의 동작을 촬영한 데모 영상 링크**
-https://www.youtube.com/watch?v=GmjLI1QYpCA
+[https://www.youtube.com/watch?v=GmjLI1QYpCA](https://youtu.be/ukQpZZSTibw)
 
 **구현 방법 및 이유에 대한 간략한 설명**
 1. 사용자 계정을 생성 시 암호화된 password를 데이터베이스에 저장하고, 로그인 시 이메일로 계정을 검색한 후, DB에 저장된 암호화 상태의 password와 입력한 password를 비교하여 로그인 성공/실패 여부를 결정하도록 했습니다.
-2. 사용자의 정보, 게시글 내용 등을 저장하고 관리할 수 있는 데이터베이스를 구축하였습니다. spring framework를 공부하던 도중, 원티드 백엔드 프리온보딩을 알게되어 spring boot와, JPA로 DataBase에 접근하는 법을 공부하여 적용해보았습니다.
-4. 사용자들이 게시글을 작성, 수정, 삭제할 수 있는 기능을 작성하였습니다.
+2. 사용자의 정보, 게시글 내용 등을 저장하고 관리할 수 있는 데이터베이스를 구축하였습니다. spring framework를 공부하던 도중, 원티드 백엔드 프리온보딩을 알게되어 spring boot와, JPA로 DataBase에 접근하는 법을 공부하여 적용해보았습니다. 
+3. 사용자들이 게시글을 작성, 수정, 삭제할 수 있는 기능을 작성하였습니다. 수정/삭제의 경우 프론트에서 로그인한 회원과 게시글 작성자의 정보가 동일한지 확인 후 수정/삭제 버튼이 노출되도록 하였으며, 백엔드에서도 수정/삭제 시도 시 작성자의 정보와 동일한지 확인 후 동작하도록 하였습니다.
+4. 게시글 리스트의 경우 5개씩 노출되도록 하였습니다.
 
 
 **API명세(request/response 포함)**
@@ -98,19 +99,20 @@ response: (String 형식)
    그 외 : 게시글 번호
 
 5. 게시글 삭제 API
-Endpoint: DELETE /community/번호
+Endpoint: DELETE /community
 Request:
     {
-       "id": "2"
+       "id": "2",
+       "memberId" : "1"
     }
 response: (String 형식)
    "0" : 삭제된 경우
    그 외 : 삭패 실패한 경우
 
-6. 게시글 리스트 조회 API
+7. 게시글 리스트 조회 API
 Endpoint: GET /community
 
-7. 게시글 상세 페이지
+8. 게시글 상세 페이지
 Request:
     {
        "id": "2"
