@@ -36,6 +36,10 @@ public class Member {
 		this.password = password;
 	}
 	
+	public void setPassword(String securityPassword) {
+		this.password = securityPassword;
+	}
+	
 	public void setSecurityPassword() {
 		PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 		String securityPassword = passwordEncoder.encode(password);

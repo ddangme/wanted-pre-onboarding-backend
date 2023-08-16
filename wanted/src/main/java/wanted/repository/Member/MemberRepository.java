@@ -17,9 +17,8 @@ public class MemberRepository {
 	
 	//== 로그인 로직 ==//
 	public Member login(Member member) {
-		List<Member> findMember = em.createQuery("SELECT m FROM Member m WHERE m.email = :email AND m.password = :password", Member.class)
+		List<Member> findMember = em.createQuery("SELECT m FROM Member m WHERE m.email = :email", Member.class)
 		.setParameter("email", member.getEmail())
-		.setParameter("password", member.getPassword())
 		.getResultList();
 		if (findMember.isEmpty()) {
 			return null;

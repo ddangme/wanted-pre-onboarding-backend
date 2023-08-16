@@ -1,8 +1,11 @@
 package wanted.service.member;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import wanted.model.Member;
 import wanted.repository.Member.MemberRepository;
@@ -12,6 +15,7 @@ import wanted.repository.Member.MemberRepository;
 @RequiredArgsConstructor
 public class MemberService {
 	private final MemberRepository memberRepository;
+	private PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 	
 	public String login(Member member) {
 		if (!member.checkEmail()) {
@@ -22,12 +26,17 @@ public class MemberService {
 		Member findMember = memberRepository.login(member);
 		if (findMember == null) {
 			return "존재하지 않는 계정입니다.";
+		} 
+		if (!passwordEncoder.matches(member.getPassword(), findMember.getPassword())) {
+			return "비밀번호가 일치하지 않습니다.";
 		}
 		return "성공" + memberRepository.login(member).getId().toString();
 	}
 	
 	@Transactional
 	public String join(Member member) {
+		String securityPassword = passwordEncoder.encode(member.getPassword());
+		member.setPassword(securityPassword);
 		if (!member.checkEmail()) {
 			return "이메일 형식으로 입력해주세요.";
 		} else if (!member.checkPassword()) {
